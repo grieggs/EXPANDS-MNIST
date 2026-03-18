@@ -41,14 +41,14 @@ class DrawApp:
         root.title("DigitNet — Draw a Digit")
         root.resizable(False, False)
 
-        # ── Internal PIL image (28x28) used for inference ─────────────────────
+        #  Internal PIL image (28x28) used for inference 
         # We draw on a high-res canvas for smoothness, then downsample to 28x28
         # for the model. The PIL image is the ground truth; the Tk canvas is
         # just a magnified view of it.
         self.pil_img  = Image.new("L", (CANVAS_SIZE, CANVAS_SIZE), color=0)
         self.pil_draw = ImageDraw.Draw(self.pil_img)
 
-        # ── Layout: drawing canvas on the left, stats panel on the right ──────
+        #  Layout: drawing canvas on the left, stats panel on the right 
         frame_left  = tk.Frame(root, bg="#1a1a2e")
         frame_right = tk.Frame(root, bg="#16213e", width=260, padx=16, pady=16)
         frame_left.pack(side=tk.LEFT)
@@ -68,7 +68,7 @@ class DrawApp:
                         bg="#1a1a2e", fg="#888", font=("Helvetica", 9))
         hint.pack(pady=(4, 0))
 
-        # ── Prediction display ────────────────────────────────────────────────
+        #  Prediction display 
         self.pred_var = tk.StringVar(value="?")
         tk.Label(frame_right, textvariable=self.pred_var,
                  font=("Helvetica", 72, "bold"),
@@ -77,7 +77,7 @@ class DrawApp:
         tk.Label(frame_right, text="Prediction",
                  bg="#16213e", fg="#aaa", font=("Helvetica", 10)).pack()
 
-        # ── Probability bars (one per digit) ─────────────────────────────────
+        #  Probability bars (one per digit) 
         tk.Label(frame_right, text="Class probabilities",
                  bg="#16213e", fg="#aaa", font=("Helvetica", 9)).pack(pady=(16, 4))
 
@@ -107,7 +107,7 @@ class DrawApp:
                      font=("Helvetica", 8), width=5).pack(side=tk.LEFT, padx=(4, 0))
             self.bar_labels.append(lbl_var)
 
-        # ── Mouse bindings ────────────────────────────────────────────────────
+        #  Mouse bindings 
         self.canvas.bind("<B1-Motion>",    self._on_drag)
         self.canvas.bind("<ButtonPress-1>", self._on_drag)   # single click counts too
         self.canvas.bind("<ButtonRelease-1>", lambda e: self._predict())
@@ -117,7 +117,7 @@ class DrawApp:
 
         self.last_xy = None
 
-    # ── Drawing ───────────────────────────────────────────────────────────────
+    #  Drawing 
 
     def _on_drag(self, event):
         """Draw a filled circle at the cursor position on both the Tk canvas
@@ -144,7 +144,7 @@ class DrawApp:
         for _, bar_fill in self.bar_vars:
             bar_fill.place(relwidth=0)
 
-    # ── Inference ─────────────────────────────────────────────────────────────
+    #  Inference 
 
     def _predict(self):
         """
@@ -177,7 +177,7 @@ class DrawApp:
 
 def main():
     parser = argparse.ArgumentParser(description="Interactive digit drawing + prediction.")
-    parser.add_argument("checkpoint", type=str, help="Path to .pth checkpoint file")
+    parser.add_argument("--checkpoint", type=str, help="Path to .pth checkpoint file", default="best_digit_net.pth")
     args = parser.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

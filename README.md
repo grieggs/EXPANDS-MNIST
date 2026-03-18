@@ -1,6 +1,7 @@
 # EXPANDS-MNIST
 
 A from-scratch PyTorch CNN trained on the [Kaggle Digit Recognizer](https://www.kaggle.com/competitions/digit-recognizer) competition dataset. Includes a batch prediction script and an interactive drawing canvas for real-time inference.
+To be used in concert with the Kaggle Notebook https://www.kaggle.com/code/smgrieggs/mnist-expands/
 
 ---
 

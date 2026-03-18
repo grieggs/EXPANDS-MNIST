@@ -24,7 +24,7 @@ from PIL import Image, ImageOps
 
 from model import load_model
 
-# ── MNIST normalisation constants (must match training) ───────────────────────
+#  MNIST normalisation constants (must match training) 
 MEAN = 0.1307
 STD  = 0.3081
 
@@ -90,7 +90,7 @@ def visualize_results(image_paths, tensors, preds, probs_list, invert):
     for i, (path, tensor, pred, probs) in enumerate(
         zip(image_paths, tensors, preds, probs_list)
     ):
-        # ── Left panel: input image ───────────────────────────────────────────
+        #  Left panel: input image 
         ax_img = axes[i, 0]
         display = tensor.squeeze().numpy() * STD + MEAN
         display = np.clip(display, 0, 1)
@@ -99,7 +99,7 @@ def visualize_results(image_paths, tensors, preds, probs_list, invert):
                          fontsize=11, fontweight="bold")
         ax_img.axis("off")
 
-        # ── Right panel: probability bar chart ───────────────────────────────
+        #  Right panel: probability bar chart 
         ax_bar = axes[i, 1]
         bar_colors        = colors.copy()
         bar_colors[pred]  = "#E53935"   # highlight the predicted class in red
@@ -122,9 +122,9 @@ def visualize_results(image_paths, tensors, preds, probs_list, invert):
 
 def main():
     parser = argparse.ArgumentParser(description="Run DigitNet on hand-drawn digit images.")
-    parser.add_argument("checkpoint",   type=str,            help="Path to .pth checkpoint")
-    parser.add_argument("images",       type=str, nargs="+", help="Image file(s) to predict")
-    parser.add_argument("--invert",     action="store_true",
+    parser.add_argument("--checkpoint", type=str, help="Path to .pth checkpoint", default="best_digit_net.pth")
+    parser.add_argument("images", type=str, nargs="+", help="Image file(s) to predict")
+    parser.add_argument("--invert", action="store_true",
                         help="Invert pixel values (use for white-background drawings)")
     parser.add_argument("--no-display", action="store_true",
                         help="Skip the matplotlib window (still saves predictions.png)")
