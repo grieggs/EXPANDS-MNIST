@@ -23,7 +23,7 @@ The Kaggle notebook (`.ipynb`) trains the model and produces `best_digit_net.pth
 **Requirements:** Python 3.9 or newer.
 ```bash
 # 1. Clone or download this repository
-cd digit-net
+cd EXPANDS-MNIST
 
 # 2. (Recommended) Create a virtual environment
 python -m venv .venv
@@ -62,17 +62,17 @@ Place `best_digit_net.pth` in the same directory as the scripts.
 
 Accepts any image format supported by Pillow (PNG, JPEG, BMP, etc.). The image will be automatically converted to greyscale and resized to 28×28.
 ```bash
-python predict.py best_digit_net.pth digit.png
+python predict.py digit.png
 ```
 
 Predict on multiple images at once:
 ```bash
-python predict.py best_digit_net.pth one.png two.png three.png
+python predict.py one.png two.png three.png
 ```
 
 **If your drawing has a white/light background** (e.g. default MS Paint canvas), pass `--invert` to flip the pixel values before inference. MNIST digits are white-on-black, so without this flag a dark-on-white drawing will look like noise to the model.
 ```bash
-python predict.py best_digit_net.pth my_seven.png --invert
+python predict.py my_seven.png --invert
 ```
 
 Each image produces a side-by-side panel showing the preprocessed input and a horizontal probability bar chart. The full figure is saved as `predictions.png`.
@@ -80,12 +80,12 @@ Each image produces a side-by-side panel showing the preprocessed input and a ho
 **Full options:**
 ```
 positional arguments:
-  checkpoint      Path to .pth checkpoint file
-  images          One or more image files to predict
+  images               One or more image files to predict
 
 optional arguments:
-  --invert        Invert pixel values (use for white-background drawings)
-  --no-display    Skip the matplotlib window (still saves predictions.png)
+  --checkpoint PATH    Path to .pth checkpoint file (default: best_digit_net.pth)
+  --invert             Invert pixel values (use for white-background drawings)
+  --no-display         Skip the matplotlib window (still saves predictions.png)
 ```
 
 ---
@@ -94,7 +94,7 @@ optional arguments:
 
 Opens a black canvas. Draw a digit with your mouse — the model predicts in real time and displays a live probability bar for each class.
 ```bash
-python draw_and_predict.py best_digit_net.pth
+python draw_and_predict.py
 ```
 
 **Controls:**
@@ -122,7 +122,7 @@ The model was trained on MNIST, which has a specific style. Your drawings will b
 
 ## Project Structure
 ```
-digit-net/
+EXPANDS-MNIST/
 ├── model.py                 # DigitNet class definition
 ├── predict.py               # Batch inference script
 ├── draw_and_predict.py      # Interactive drawing app
